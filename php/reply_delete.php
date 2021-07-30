@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <?php
 
   session_start();
@@ -6,11 +7,12 @@
   } else {
     $userid = "";
   }
-
+  
   $reply_id = $_GET['reply_id'];
 
+
   if(!$userid || $userid != $reply_id){
-    echo "
+    echo"
       <script>
         alert('잘못된 접근입니다.');
         location.href='/zay/index.php';
@@ -24,11 +26,10 @@
     mysqli_query($dbConn, $sql);
 
     echo "
-      <script>
-        alert('삭제가 완료되었습니다.');
-        history.go(-1);
-      </script>
+    <script>
+    alert('삭제가 완료되었습니다.');
+    history.go(-1);
+    </script>
     ";
   }
-
 ?>

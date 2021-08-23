@@ -1,116 +1,119 @@
-$(function(){
-  
+$(function () {
   //header stick to top and change style when scrolling down
-  const headerStick = function(){
+  const headerStick = function () {
     const hdTop = $("header").offset().top;
 
-    $(window).scroll(function(){
+    $(window).scroll(function () {
       const scroll = $(window).scrollTop();
-      if(scroll >= hdTop){
-        $("header").css({position:"fixed", top:0, width:"100%"});
+      if (scroll >= hdTop) {
+        $("header").css({ position: "fixed", top: 0, width: "100%" });
         $("header").addClass("stick");
       } else {
-        $("header").css({position:"relative"});
+        $("header").css({ position: "relative" });
         $("header").removeClass("stick");
       }
     });
-  }
+  };
 
   headerStick();
 
   //navigation slide down and up when mobile menu click
-  const barsClick = function(){
-    $(".mobile_menu").click(function(){
+  const barsClick = function () {
+    $(".mobile_menu").click(function () {
       $(this).toggleClass("on");
-      if($(this).hasClass("on")){
+      if ($(this).hasClass("on")) {
         $(".menu_items").slideDown(250);
       } else {
         $(".menu_items").slideUp(250);
       }
     });
-  }
+  };
 
   barsClick();
 
   //index page description text cut
-  const cuttingText = function(txtBox, txtCut, txtLen){
+  const cuttingText = function (txtBox, txtCut, txtLen) {
     //console.log($(".featured_item").length);
-    for(let i = 0; i < $(txtBox).length; i++){
+    for (let i = 0; i < $(txtBox).length; i++) {
       const textLength = $(txtBox).eq(i).find(txtCut).text();
       //console.log(textLength);
 
-      $(txtBox).eq(i).find(txtCut).text(textLength.substr(0, txtLen) + "...");
+      $(txtBox)
+        .eq(i)
+        .find(txtCut)
+        .text(textLength.substr(0, txtLen) + "...");
     }
-  }
+  };
 
   cuttingText(".featured_item", "p.desc", 60);
   cuttingText(".search_item", ".search_txt p", 120);
 
   let len = 0;
-  $(window).resize(function(){
+  $(window).resize(function () {
     const wWidth = $(window).width();
-    if(wWidth < 850){
-      len = 50;   
+    if (wWidth < 850) {
+      len = 50;
     } else {
-      len = 120;     
+      len = 120;
     }
     cuttingText(".search_item", ".search_txt p", len);
   });
 
   // index page items load more
-  const loadMore = function(){
+  const loadMore = function () {
     $(".featured_item").hide();
     $(".featured_item").slice(0, 3).show();
 
-    $(".load_more button").click(function(){
+    $(".load_more button").click(function () {
       $(".featured_item:hidden").slice(0, 3).show();
-      if($(".featured_item:hidden").length == 0){
+      if ($(".featured_item:hidden").length == 0) {
         $(".load_more").html(`<input type="hidden">`);
       }
     });
-  }
+  };
 
   loadMore();
 
   //featured item images height fit to responsive width
-  const imgHeightFit = function(){
+  const imgHeightFit = function () {
     const featuredImgWidth = $(".featured_img").outerWidth();
     $(".featured_img").outerHeight(featuredImgWidth);
-  
-    $(window).resize(function(){
+
+    $(window).resize(function () {
       const featuredImgWidth = $(".featured_img").outerWidth();
       $(".featured_img").outerHeight(featuredImgWidth);
     });
-  }
-  
+  };
+
   imgHeightFit();
 
   //detail page image tabs function
-  const detailTabs = function(){
-    $(".detail_tab_btns span").click(function(){
+  const detailTabs = function () {
+    $(".detail_tab_btns span").click(function () {
       const index = $(this).index();
-  
+
       $(".detail_img>img").hide();
       $(".detail_img>img").eq(index).show();
     });
-  
+
     $(".detail_tab_btns span").eq(0).trigger("click");
-  }
-  
+  };
+
   detailTabs();
 
   //디테일 페이지 이미지 높이 맞춤
-  function detailFit(){
+  function detailFit() {
     const imgHeight = $(".detail_img_item").outerHeight();
     const btnsHeight = $(".detail_tab_btns").outerHeight();
-  
+
     $(".detail_img").height(imgHeight + btnsHeight);
   }
 
-  $(window).resize(function(){
-    setTimeout(function(){ //리사이즈, 스크롤 이벤트 시 쓰로틀링
+  $(window).resize(function () {
+    setTimeout(function () {
+      //리사이즈, 스크롤 이벤트 시 쓰로틀링
       detailFit();
-    }, 150);   
+    }, 150);
   });
 
   detailFit();
@@ -131,4 +134,15 @@ $(function(){
   //     location.href='/zay/pages/menu_page/shop.php?key=down_price';
   //   }
   // });
+  const admin_tabs = function () {
+    $(".admin_tabs button").click(function () {
+      const tab_idx = $(this).index();
+      //alert(tab_idx);
+      $(".admin_panels>div").hide();
+      $(".admin_panels>div").eq(tab_idx).show();
+    });
+
+    $(".admin_tabs button").eq(0).trigger("click");
+  };
+  admin_tabs();
 });

@@ -1,5 +1,16 @@
 {
   "editor.fontSize": 18,
   "editor.fontLigatures": null,
-  "materialTheme.accent": "Cyan"
+  "materialTheme.accent": "Cyan",
+  "editor.tokenColorCustomizations": {
+    "comments": "#f31eb3"
+  },
+  "[css]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  },
+  "[html]": {
+    "editor.defaultFormatter": null,
+    "editor.formatOnSave": false
+  }
 }
